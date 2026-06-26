@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Africa Vision Studio — Agence Digitale IA Africaine</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --noir: #0D0D0D;
+  --noir2: #1C1C1C;
+  --or: #D4AF37;
+  --or-clair: #F0D060;
+  --or-fonce: #A8860A;
+  --argent: #C0C0C0;
+  --blanc: #F5F5F5;
+  --texte: #E0E0E0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--noir);color:var(--texte);font-family:'Poppins',sans-serif;overflow-x:hidden;}
+
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:0.3;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 4rem;background:rgba(13,13,13,0.93);backdrop-filter:blur(14px);border-bottom:1px solid rgba(212,175,55,0.15);transition:padding .3s;}
+nav.scrolled{padding:.7rem 4rem;}
+.nav-logo img{height:48px;width:auto;display:block;transition:height .3s;}
+nav.scrolled .nav-logo img{height:38px;}
+.nav-links{display:flex;gap:2.5rem;list-style:none;}
+.nav-links a{font-family:'Poppins',sans-serif;font-size:.76rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--argent);text-decoration:none;transition:color .3s;position:relative;}
+.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--or);transition:width .3s;}
+.nav-links a:hover{color:var(--or);}
+.nav-links a:hover::after{width:100%;}
+.nav-cta{background:linear-gradient(135deg,var(--or),var(--or-fonce));color:var(--noir)!important;padding:.45rem 1.3rem;border-radius:2px;font-weight:600!important;}
+.nav-cta::after{display:none!important;}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+.hamburger span{display:block;width:24px;height:2px;background:var(--or);transition:all .3s;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(13,13,13,.98);z-index:99;flex-direction:column;align-items:center;justify-content:center;gap:2.5rem;}
+.mobile-menu.open{display:flex;}
+.mobile-menu a{font-family:'Cinzel',serif;font-size:1.4rem;letter-spacing:.1em;color:var(--blanc);text-decoration:none;transition:color .3s;}
+.mobile-menu a:hover{color:var(--or);}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 40%,rgba(212,175,55,.08) 0%,transparent 70%),radial-gradient(ellipse 40% 40% at 20% 80%,rgba(212,175,55,.04) 0%,transparent 60%),radial-gradient(ellipse 40% 40% at 80% 20%,rgba(212,175,55,.04) 0%,transparent 60%);}
+.hero-lines{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.hero-lines::before,.hero-lines::after{content:'';position:absolute;width:1px;height:200%;background:linear-gradient(to bottom,transparent,rgba(212,175,55,.25),transparent);}
+.hero-lines::before{left:15%;top:-50%;transform:rotate(15deg);}
+.hero-lines::after{right:15%;top:-50%;transform:rotate(-15deg);}
+
+.hero-logo-img{width:min(320px,65vw);height:auto;margin-bottom:1.5rem;opacity:0;transform:scale(.9);animation:fadeScale 1s ease forwards .3s;filter:drop-shadow(0 0 40px rgba(212,175,55,.25));}
+.hero-eyebrow{font-family:'Poppins',sans-serif;font-size:.7rem;font-weight:500;letter-spacing:.35em;text-transform:uppercase;color:var(--or);margin-bottom:1rem;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards .8s;}
+.hero-tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1rem,2.5vw,1.4rem);color:var(--or);margin-bottom:.6rem;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards 1s;}
+.hero-desc{font-size:.9rem;font-weight:300;color:rgba(224,224,224,.65);max-width:480px;line-height:1.9;margin-bottom:2.5rem;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards 1.2s;}
+.hero-buttons{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;opacity:0;transform:translateY(20px);animation:fadeUp .8s ease forwards 1.4s;}
+.btn-primary{background:linear-gradient(135deg,var(--or),var(--or-fonce));color:var(--noir);padding:.9rem 2.5rem;font-family:'Poppins',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border:none;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:opacity .3s,transform .3s;display:inline-block;}
+.btn-primary:hover{opacity:.85;transform:translateY(-2px);}
+.btn-secondary{background:transparent;color:var(--or);padding:.9rem 2.5rem;font-family:'Poppins',sans-serif;font-size:.76rem;font-weight:500;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;border:1px solid var(--or);cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all .3s;display:inline-block;}
+.btn-secondary:hover{background:rgba(212,175,55,.1);transform:translateY(-2px);}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;opacity:0;animation:fadeUp .8s ease forwards 2s;}
+.hero-scroll span{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(212,175,55,.5);}
+.scroll-bar{width:1px;height:50px;background:linear-gradient(to bottom,var(--or),transparent);animation:scrollPulse 2s ease infinite;}
+
+/* STATS */
+#stats{padding:4.5rem 4rem;background:var(--noir2);border-top:1px solid rgba(212,175,55,.12);border-bottom:1px solid rgba(212,175,55,.12);}
+.stats-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center;}
+.stat-item{position:relative;}
+.stat-item:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:rgba(212,175,55,.2);}
+.stat-number{font-family:'Cinzel',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;background:linear-gradient(135deg,var(--or-clair),var(--or));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block;}
+.stat-label{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(224,224,224,.45);margin-top:.3rem;}
+
+/* SECTION COMMONS */
+section{padding:6rem 4rem;}
+.section-header{text-align:center;margin-bottom:4rem;}
+.section-eyebrow{font-size:.68rem;font-weight:500;letter-spacing:.35em;text-transform:uppercase;color:var(--or);margin-bottom:.8rem;display:block;}
+.section-title{font-family:'Cinzel',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--blanc);line-height:1.2;}
+.section-title span{color:var(--or);}
+.section-divider{width:60px;height:2px;background:linear-gradient(to right,var(--or),var(--or-fonce));margin:1.2rem auto 0;}
+
+/* PORTFOLIO */
+#portfolio{background:var(--noir);}
+
+.portfolio-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+
+.portfolio-card{
+  background:var(--noir2);
+  border:1px solid rgba(212,175,55,.12);
+  border-radius:6px;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  transition:border-color .3s,transform .3s;
+}
+.portfolio-card:hover{border-color:rgba(212,175,55,.45);transform:translateY(-4px);}
+
+.portfolio-image{
+  width:100%;
+  aspect-ratio:4/3;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
+.portfolio-image img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+
+.portfolio-info{
+  padding:1.2rem 1.3rem;
+  border-top:1px solid rgba(212,175,55,.12);
+}
+.portfolio-tag{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:.4rem;}
+.portfolio-name{font-family:'Cinzel',serif;font-size:1rem;font-weight:600;color:var(--blanc);}
+.portfolio-desc{font-size:.8rem;font-weight:300;color:rgba(224,224,224,.6);margin-top:.4rem;line-height:1.6;}
+
+/* Dots navigation */
+.portfolio-dots{display:none;justify-content:center;gap:.6rem;margin-top:1.5rem;}
+.portfolio-dots span{width:8px;height:8px;border-radius:50%;background:rgba(212,175,55,.25);transition:background .3s,transform .3s;cursor:pointer;}
+.portfolio-dots span.active{background:var(--or);transform:scale(1.3);}
+
+.swipe-hint{display:none;text-align:center;margin-top:1rem;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,175,55,.4);}
+
+/* Mobile : carrousel horizontal, image complète, texte toujours visible dessous */
+@media(max-width:900px){
+  .portfolio-grid{
+    display:flex;
+    overflow-x:auto;
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+    gap:1rem;
+    padding:0 1.5rem 1rem;
+    scrollbar-width:none;
+    max-width:100%;
+  }
+  .portfolio-grid::-webkit-scrollbar{display:none;}
+
+  .portfolio-card{
+    min-width:85vw;
+    max-width:85vw;
+    scroll-snap-align:center;
+  }
+  .portfolio-image{
+    aspect-ratio:1/1;
+  }
+
+  .portfolio-dots{display:flex;}
+  .swipe-hint{display:block;}
+}
+
+/* TÉMOIGNAGES */
+#temoignages{background:var(--noir2);}
+.temoignages-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;}
+.temoignage-card{background:rgba(255,255,255,.02);border:1px solid rgba(212,175,55,.12);padding:2rem 1.8rem;position:relative;transition:border-color .3s,transform .3s;}
+.temoignage-card:hover{border-color:rgba(212,175,55,.4);transform:translateY(-4px);}
+.temoignage-stars{color:var(--or);font-size:.85rem;margin-bottom:1rem;letter-spacing:.1em;}
+.temoignage-text{font-family:'Playfair Display',serif;font-style:italic;font-size:.9rem;line-height:1.8;color:rgba(224,224,224,.8);margin-bottom:1.5rem;}
+.temoignage-author{display:flex;align-items:center;gap:.8rem;}
+.temoignage-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--or),var(--or-fonce));display:flex;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-weight:700;color:var(--noir);font-size:.95rem;flex-shrink:0;}
+.temoignage-name{font-family:'Cinzel',serif;font-size:.8rem;font-weight:600;color:var(--blanc);letter-spacing:.05em;}
+.temoignage-role{font-size:.7rem;color:rgba(212,175,55,.6);letter-spacing:.05em;margin-top:.1rem;}
+
+@media(max-width:900px){
+  .temoignages-grid{grid-template-columns:1fr;}
+}
+
+/* BOUTON WHATSAPP FLOTTANT */
+.whatsapp-float{
+  position:fixed;
+  bottom:24px;
+  right:24px;
+  width:58px;
+  height:58px;
+  background:#25D366;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 4px 18px rgba(0,0,0,.4);
+  z-index:200;
+  text-decoration:none;
+  animation:whatsappPulse 2.5s ease infinite;
+}
+.whatsapp-float svg{width:30px;height:30px;}
+@keyframes whatsappPulse{
+  0%,100%{box-shadow:0 4px 18px rgba(0,0,0,.4),0 0 0 0 rgba(37,211,102,.5);}
+  50%{box-shadow:0 4px 18px rgba(0,0,0,.4),0 0 0 10px rgba(37,211,102,0);}
+}
+@media(max-width:900px){
+  .whatsapp-float{bottom:18px;right:18px;width:52px;height:52px;}
+  .whatsapp-float svg{width:26px;height:26px;}
+}
+/* SERVICES */
+#services{background:var(--noir2);}
+.services-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1.2rem;}
+.service-card{background:rgba(255,255,255,.02);border:1px solid rgba(212,175,55,.1);padding:2rem 1.6rem;position:relative;overflow:hidden;transition:transform .3s,border-color .3s;}
+.service-card::after{content:'';position:absolute;bottom:0;left:0;width:0;height:2px;background:linear-gradient(to right,var(--or),var(--or-fonce));transition:width .4s;}
+.service-card:hover{transform:translateY(-4px);border-color:rgba(212,175,55,.35);}
+.service-card:hover::after{width:100%;}
+.service-icon{font-size:1.6rem;margin-bottom:1rem;display:block;}
+.service-name{font-family:'Cinzel',serif;font-size:.82rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--or);margin-bottom:.5rem;}
+.service-desc{font-size:.8rem;font-weight:300;color:rgba(224,224,224,.55);line-height:1.7;}
+
+/* VALEURS */
+#valeurs{background:var(--noir);}
+.valeurs-grid{max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;text-align:center;}
+.valeur-item{padding:2rem 1rem;border:1px solid rgba(212,175,55,.1);transition:border-color .3s,transform .3s;}
+.valeur-item:hover{border-color:rgba(212,175,55,.4);transform:translateY(-4px);}
+.valeur-icon{font-size:2rem;margin-bottom:.8rem;display:block;}
+.valeur-name{font-family:'Cinzel',serif;font-size:.8rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-bottom:.3rem;}
+.valeur-sub{font-size:.7rem;font-weight:300;color:rgba(224,224,224,.45);letter-spacing:.05em;}
+
+/* APROPOS */
+#apropos{background:var(--noir2);}
+.apropos-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;}
+.apropos-card{background:rgba(255,255,255,.02);border:1px solid rgba(212,175,55,.18);padding:3rem;position:relative;}
+.apropos-card::before{content:'';position:absolute;top:-1px;left:2rem;width:60px;height:3px;background:linear-gradient(to right,var(--or),var(--or-fonce));}
+.apropos-quote{font-family:'Playfair Display',serif;font-style:italic;font-size:1.15rem;line-height:1.7;color:var(--blanc);margin-bottom:1.5rem;}
+.apropos-quote::before{content:'\201C';font-size:3rem;color:var(--or);line-height:0;vertical-align:-.5em;margin-right:.3rem;}
+.apropos-label{font-family:'Cinzel',serif;font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:.5rem;}
+.apropos-text{font-size:.85rem;font-weight:300;color:rgba(224,224,224,.65);line-height:1.9;margin-bottom:1.5rem;}
+.apropos-right p{font-size:.88rem;font-weight:300;color:rgba(224,224,224,.65);line-height:1.9;margin-bottom:1.5rem;}
+.apropos-location{display:flex;align-items:center;gap:.8rem;font-size:.8rem;color:var(--or);font-family:'Cinzel',serif;letter-spacing:.1em;}
+
+/* CONTACT */
+#contact{background:var(--noir);}
+.contact-inner{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;}
+.contact-info h3{font-family:'Cinzel',serif;font-size:.95rem;font-weight:600;color:var(--or);letter-spacing:.1em;margin-bottom:2rem;line-height:1.5;}
+.contact-item{display:flex;gap:1rem;align-items:flex-start;margin-bottom:1.5rem;}
+.contact-icon{font-size:1rem;flex-shrink:0;margin-top:.15rem;}
+.contact-label{font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,175,55,.5);margin-bottom:.2rem;}
+.contact-detail a,.contact-detail span{display:block;font-size:.83rem;font-weight:300;color:rgba(224,224,224,.75);text-decoration:none;transition:color .3s;}
+.contact-detail a:hover{color:var(--or);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(212,175,55,.65);margin-bottom:.45rem;}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(212,175,55,.18);color:var(--blanc);padding:.8rem 1rem;font-family:'Poppins',sans-serif;font-size:.83rem;font-weight:300;outline:none;resize:none;transition:border-color .3s;-webkit-appearance:none;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--or);background:rgba(212,175,55,.03);}
+.form-group select option{background:var(--noir2);}
+.form-group textarea{height:110px;}
+.form-submit{width:100%;background:linear-gradient(135deg,var(--or),var(--or-fonce));color:var(--noir);padding:1rem;font-family:'Poppins',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;border:none;cursor:pointer;transition:opacity .3s,transform .3s;}
+.form-submit:hover{opacity:.85;transform:translateY(-2px);}
+
+/* FOOTER */
+footer{background:#080808;padding:3rem 4rem;border-top:1px solid rgba(212,175,55,.12);text-align:center;}
+.footer-logo img{height:60px;width:auto;margin-bottom:.5rem;opacity:.9;}
+.footer-slogan{font-family:'Playfair Display',serif;font-style:italic;font-size:.82rem;color:rgba(212,175,55,.55);margin-bottom:1.5rem;}
+.footer-socials{display:flex;gap:1.5rem;justify-content:center;margin-bottom:2rem;list-style:none;}
+.footer-socials a{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(224,224,224,.4);text-decoration:none;transition:color .3s;}
+.footer-socials a:hover{color:var(--or);}
+.footer-divider{width:40px;height:1px;background:rgba(212,175,55,.25);margin:1.5rem auto;}
+.footer-copy{font-size:.68rem;color:rgba(224,224,224,.22);letter-spacing:.1em;}
+
+/* ANIMATIONS */
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+@keyframes fadeScale{to{opacity:1;transform:scale(1);}}
+@keyframes scrollPulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:1rem 1.5rem;}
+  nav.scrolled{padding:.7rem 1.5rem;}
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+  section{padding:4rem 1.5rem;}
+  #stats{padding:3rem 1.5rem;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stat-item:nth-child(2)::after{display:none;}
+  .valeurs-grid{grid-template-columns:repeat(2,1fr);}
+  .apropos-inner{grid-template-columns:1fr;gap:2.5rem;}
+  .contact-inner{grid-template-columns:1fr;gap:2rem;}
+  .form-row{grid-template-columns:1fr;}
+  footer{padding:2.5rem 1.5rem;}
+}
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stat-item::after{display:none;}
+  .hero-buttons{flex-direction:column;align-items:center;}
+  .btn-primary,.btn-secondary{width:100%;text-align:center;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <div class="nav-logo">
+    <a href="#hero"><img src="logo-avs.png" alt="Africa Vision Studio"></a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#temoignages">Témoignages</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#portfolio" onclick="closeMenu()">Portfolio</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#apropos" onclick="closeMenu()">À Propos</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <img src="logo-avs.png" alt="Africa Vision Studio" class="hero-logo-img">
+  <p class="hero-eyebrow">Agence Digitale IA Africaine — Gabon, Libreville</p>
+  <p class="hero-tagline">Innover • Créer • Impacter</p>
+  <p class="hero-desc">Construire aujourd'hui les marques africaines de demain.<br>L'intelligence artificielle au service de votre vision.</p>
+  <div class="hero-buttons">
+    <a href="#portfolio" class="btn-primary">Voir nos Réalisations</a>
+    <a href="#contact" class="btn-secondary">Nous Contacter</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Découvrir</span>
+    <div class="scroll-bar"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div id="stats">
+  <div class="stats-grid">
+    <div class="stat-item reveal"><span class="stat-number" data-target="50">0</span><span class="stat-label">Clients Satisfaits</span></div>
+    <div class="stat-item reveal"><span class="stat-number" data-target="80">0</span><span class="stat-label">Projets Réalisés</span></div>
+    <div class="stat-item reveal"><span class="stat-number" data-target="10">0</span><span class="stat-label">Services Offerts</span></div>
+    <div class="stat-item reveal"><span class="stat-number" data-target="3">0</span><span class="stat-label">Pays Couverts</span></div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Nos Réalisations</span>
+    <h2 class="section-title">Notre <span>Portfolio</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="portfolio-grid">
+    <div class="portfolio-card reveal">
+      <div class="portfolio-image"><img src="projet1.png" alt="Pride Africa"></div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Branding & Affiche</div>
+        <div class="portfolio-name">Pride Africa</div>
+        <div class="portfolio-desc">Maison de mode africaine premium</div>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-image"><img src="projet2.png" alt="Maison des Mondes Africains"></div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Identité Visuelle</div>
+        <div class="portfolio-name">Maison des Mondes Africains</div>
+        <div class="portfolio-desc">Campagne portrait & branding</div>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-image"><img src="projet3.png" alt="Bonne Fête Maman"></div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Création Visuelle</div>
+        <div class="portfolio-name">Bonne Fête Maman</div>
+        <div class="portfolio-desc">Affiche personnalisée premium</div>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-image"><img src="projet4.png" alt="TravelAI"></div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Produit Numérique IA</div>
+        <div class="portfolio-name">TravelAI</div>
+        <div class="portfolio-desc">Planneur de voyages intelligent par IA</div>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-image"><img src="projet5.png" alt="E-Plainte Gabon"></div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Logo & Identité</div>
+        <div class="portfolio-name">E-Plainte Gabon</div>
+        <div class="portfolio-desc">Logo institutionnel officiel</div>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-image"><img src="projet6.png" alt="Tantine Nanou"></div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Campagne Personnelle</div>
+        <div class="portfolio-name">Tantine Nanou</div>
+        <div class="portfolio-desc">Une Femme. Une Mission. Un Héritage.</div>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-image"><img src="projet7.png" alt="Projet Réseau PME"></div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Infographie Technique</div>
+        <div class="portfolio-name">Projet Réseau PME</div>
+        <div class="portfolio-desc">Mise en place d'un réseau informatique pour une PME</div>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-image"><img src="projet8.png" alt="Technicien Maintenance Informatique"></div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Affiche Services</div>
+        <div class="portfolio-name">Technicien Maintenance Informatique</div>
+        <div class="portfolio-desc">Réparation, installation et diagnostic PC</div>
+      </div>
+    </div>
+    <div class="portfolio-card reveal">
+      <div class="portfolio-image"><img src="projet9.png" alt="Chez Kady Food"></div>
+      <div class="portfolio-info">
+        <div class="portfolio-tag">Branding Restauration</div>
+        <div class="portfolio-name">Chez Kady Food</div>
+        <div class="portfolio-desc">Carte burgers et shawarmas</div>
+      </div>
+    </div>
+  </div>
+  <div class="portfolio-dots" id="portfolioDots"></div>
+  <p class="swipe-hint">← Glisser pour voir plus →</p>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Ce que nous faisons</span>
+    <h2 class="section-title">Nos <span>Services</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal"><span class="service-icon">🌐</span><div class="service-name">Création de Sites Web</div><div class="service-desc">Sites vitrines, e-commerce et landing pages modernes adaptés à votre marque.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🎨</span><div class="service-name">Branding & Identité Visuelle</div><div class="service-desc">Identité de marque complète, chartes graphiques et design premium.</div></div>
+    <div class="service-card reveal"><span class="service-icon">✍️</span><div class="service-name">Logos & Charte Graphique</div><div class="service-desc">Logos professionnels et uniques conçus pour marquer les esprits.</div></div>
+    <div class="service-card reveal"><span class="service-icon">📢</span><div class="service-name">Publicités Digitales</div><div class="service-desc">Campagnes Facebook, Instagram et Google Ads pour maximiser votre ROI.</div></div>
+    <div class="service-card reveal"><span class="service-icon">📊</span><div class="service-name">Stratégie Digitale</div><div class="service-desc">Planification, positionnement et croissance digitale sur mesure.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🤖</span><div class="service-name">Solutions IA & Automatisation</div><div class="service-desc">Chatbots intelligents et automatisations qui transforment votre productivité.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🖼️</span><div class="service-name">Affiches Publicitaires</div><div class="service-desc">Designs créatifs et percutants pour tous supports, print et digital.</div></div>
+    <div class="service-card reveal"><span class="service-icon">📱</span><div class="service-name">Gestion des Réseaux Sociaux</div><div class="service-desc">Stratégie de contenu, animation et croissance organique de vos pages.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🎬</span><div class="service-name">Montage & Création Visuelle</div><div class="service-desc">Vidéos, visuels et motion design pour captiver votre audience.</div></div>
+    <div class="service-card reveal"><span class="service-icon">🤝</span><div class="service-name">Conseil & Accompagnement</div><div class="service-desc">Support personnalisé et suivi stratégique pour chacun de vos projets.</div></div>
+  </div>
+</section>
+
+<!-- VALEURS -->
+<section id="valeurs">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Ce qui nous guide</span>
+    <h2 class="section-title">Nos <span>Valeurs</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="valeurs-grid">
+    <div class="valeur-item reveal"><span class="valeur-icon">💡</span><div class="valeur-name">Innovation</div><div class="valeur-sub">IA & Technologie</div></div>
+    <div class="valeur-item reveal"><span class="valeur-icon">🎯</span><div class="valeur-name">Vision</div><div class="valeur-sub">Orientation & Stratégie</div></div>
+    <div class="valeur-item reveal"><span class="valeur-icon">💎</span><div class="valeur-name">Excellence</div><div class="valeur-sub">Qualité Premium</div></div>
+    <div class="valeur-item reveal"><span class="valeur-icon">🌍</span><div class="valeur-name">Afrique</div><div class="valeur-sub">Notre Identité</div></div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section id="temoignages">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Ce qu'ils disent de nous</span>
+    <h2 class="section-title">Témoignages <span>Clients</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="temoignages-grid">
+    <div class="temoignage-card reveal">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-text">Une équipe à l'écoute et très professionnelle. Notre logo et notre identité visuelle reflètent enfin qui nous sommes vraiment.</p>
+      <div class="temoignage-author">
+        <div class="temoignage-avatar">MN</div>
+        <div>
+          <div class="temoignage-name">Marielle N.</div>
+          <div class="temoignage-role">Fondatrice, Maison de Mode</div>
+        </div>
+      </div>
+    </div>
+    <div class="temoignage-card reveal">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-text">Le site web livré dépasse nos attentes. Rapide, moderne, et nos clients nous le disent : ça inspire confiance.</p>
+      <div class="temoignage-author">
+        <div class="temoignage-avatar">JD</div>
+        <div>
+          <div class="temoignage-name">Jonathan D.</div>
+          <div class="temoignage-role">Entrepreneur, Libreville</div>
+        </div>
+      </div>
+    </div>
+    <div class="temoignage-card reveal">
+      <div class="temoignage-stars">★★★★★</div>
+      <p class="temoignage-text">Africa Vision Studio a su capter notre vision et la transformer en visuels qui parlent vraiment à notre communauté.</p>
+      <div class="temoignage-author">
+        <div class="temoignage-avatar">SP</div>
+        <div>
+          <div class="temoignage-name">Sandra P.</div>
+          <div class="temoignage-role">Responsable Communication</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section id="apropos">
+  <div class="apropos-inner">
+    <div class="apropos-left reveal">
+      <div class="apropos-card">
+        <p class="apropos-quote">Construire aujourd'hui les marques africaines de demain.</p>
+        <div class="apropos-label">Notre Mission</div>
+        <p class="apropos-text">Utiliser la puissance de l'IA et du digital pour révéler le potentiel des marques africaines et les propulser vers l'excellence mondiale.</p>
+        <div class="apropos-label">Notre Vision</div>
+        <p class="apropos-text">Devenir la référence africaine des solutions digitales intelligentes et créatives, au service d'un continent innovant et ambitieux.</p>
+      </div>
+    </div>
+    <div class="apropos-right reveal">
+      <div class="section-header" style="text-align:left;">
+        <span class="section-eyebrow">Qui sommes-nous</span>
+        <h2 class="section-title">Africa <span>Vision</span> Studio</h2>
+        <div class="section-divider" style="margin-left:0;"></div>
+      </div>
+      <p>Africa Vision Studio est une agence digitale IA africaine basée à Libreville, Gabon. Nous combinons l'intelligence artificielle, la créativité et une profonde compréhension du marché africain.</p>
+      <p>Notre équipe maîtrise les dernières technologies pour vous offrir des solutions digitales premium : du branding à l'automatisation IA, en passant par la publicité digitale et la création de contenu.</p>
+      <p>Connecter vos idées à l'avenir digital — c'est notre promesse.</p>
+      <div class="apropos-location"><span>📍</span><span>Gabon — Libreville</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-eyebrow">Travaillons ensemble</span>
+    <h2 class="section-title">Nous <span>Contacter</span></h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-info reveal">
+      <h3>Connectons vos idées<br>à l'avenir digital.</h3>
+      <div class="contact-item"><span class="contact-icon">📞</span><div class="contact-detail"><span class="contact-label">Téléphone / WhatsApp</span><a href="tel:+241062181901">+241 062 18 19 01</a></div></div>
+      <div class="contact-item"><span class="contact-icon">✉️</span><div class="contact-detail"><span class="contact-label">Email</span><a href="mailto:africavisionstudio@gmail.com">africavisionstudio@gmail.com</a></div></div>
+      <div class="contact-item"><span class="contact-icon">📸</span><div class="contact-detail"><span class="contact-label">Instagram</span><a href="#">@africa_vision_studio</a></div></div>
+      <div class="contact-item"><span class="contact-icon">👥</span><div class="contact-detail"><span class="contact-label">Facebook</span><a href="#">Africa Vision Studio</a></div></div>
+      <div class="contact-item"><span class="contact-icon">📍</span><div class="contact-detail"><span class="contact-label">Localisation</span><span>Gabon — Libreville</span></div></div>
+    </div>
+    <form class="contact-form reveal" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="contact">
+      <input name="bot-field" style="display:none">
+      <div class="form-row">
+        <div class="form-group"><label>Nom</label><input type="text" name="nom" placeholder="Votre nom" required></div>
+        <div class="form-group"><label>Email</label><input type="email" name="email" placeholder="votre@email.com" required></div>
+      </div>
+      <div class="form-group"><label>Service souhaité</label>
+        <select name="service">
+          <option value="">Choisir un service...</option>
+          <option>Création de site web</option>
+          <option>Branding & Identité visuelle</option>
+          <option>Logo & Charte graphique</option>
+          <option>Publicités digitales</option>
+          <option>Stratégie digitale</option>
+          <option>Solutions IA & Automatisation</option>
+          <option>Gestion réseaux sociaux</option>
+          <option>Montage & Création visuelle</option>
+          <option>Conseil & Accompagnement</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Message</label><textarea name="message" placeholder="Décrivez votre projet..." required></textarea></div>
+      <button type="submit" class="form-submit">Envoyer le Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo"><img src="logo-avs.png" alt="Africa Vision Studio"></div>
+  <p class="footer-slogan">Créer • Innover • Impacter</p>
+  <ul class="footer-socials">
+    <li><a href="mailto:africavisionstudio@gmail.com">Email</a></li>
+    <li><a href="#">Instagram</a></li>
+    <li><a href="#">Facebook</a></li>
+    <li><a href="tel:+241062181901">WhatsApp</a></li>
+  </ul>
+  <div class="footer-divider"></div>
+  <p class="footer-copy">© 2025 Africa Vision Studio — Tous droits réservés · Gabon, Libreville</p>
+</footer>
+
+<script>
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 60));
+
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobileMenu');
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  mobileMenu.classList.toggle('open');
+});
+function closeMenu() {
+  hamburger.classList.remove('open');
+  mobileMenu.classList.remove('open');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 70);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const step = target / (1800 / 16);
+  let current = 0;
+  const t = setInterval(() => {
+    current += step;
+    if (current >= target) { current = target; clearInterval(t); }
+    el.textContent = Math.floor(current) + '+';
+  }, 16);
+}
+const cObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { animateCounter(e.target); cObs.unobserve(e.target); } });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-number').forEach(el => cObs.observe(el));
+
+const grid = document.querySelector('.portfolio-grid');
+const dotsContainer = document.getElementById('portfolioDots');
+const cards = document.querySelectorAll('.portfolio-card');
+if(dotsContainer && cards.length){
+  cards.forEach((_,i) => {
+    const dot = document.createElement('span');
+    if(i===0) dot.classList.add('active');
+    dot.addEventListener('click', () => {
+      cards[i].scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+    });
+    dotsContainer.appendChild(dot);
+  });
+  grid.addEventListener('scroll', () => {
+    const scrollLeft = grid.scrollLeft;
+    const cardWidth = cards[0].offsetWidth + 16;
+    const index = Math.round(scrollLeft / cardWidth);
+    dotsContainer.querySelectorAll('span').forEach((d,i) => d.classList.toggle('active', i===index));
+  });
+}
+</script>
+<!-- WHATSAPP FLOTTANT -->
+<a href="https://wa.me/24162181901" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contacter sur WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-1.749-.872-2.892-1.554-4.041-3.524-.305-.524.305-.487.875-1.624.099-.195.05-.366-.05-.51-.099-.15-.672-1.62-.922-2.206-.24-.585-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475 0 1.46 1.065 2.875 1.213 3.075.149.195 2.052 3.105 4.974 4.234 2.917 1.135 2.917.757 3.447.71.523-.046 1.694-.689 1.943-1.36.24-.673.24-1.252.165-1.36-.074-.111-.272-.18-.572-.345z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.137.557 4.142 1.527 5.875L0 24l6.305-1.654A11.93 11.93 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.75c-1.802 0-3.5-.485-4.972-1.34l-.358-.21-3.74.98.998-3.642-.232-.374A9.708 9.708 0 012.25 12C2.25 6.624 6.624 2.25 12 2.25S21.75 6.624 21.75 12 17.376 21.75 12 21.75z"/></svg>
+</a>
+
+</body>
+</html>
