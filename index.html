@@ -287,6 +287,18 @@ footer{background:#080808;padding:3rem 4rem;border-top:1px solid rgba(212,175,55
   .btn-primary,.btn-secondary{width:100%;text-align:center;}
 }
 </style>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
 </head>
 <body>
 
